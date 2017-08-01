@@ -8,4 +8,9 @@
 - 退出回到原始动画
 - 打开动画
 
+### 效果浏览
+
+![image 2](screenshoot/WX20170801-110018.png)
+
+![image 1](screenshoot/WX20170801-110111.png)
 
