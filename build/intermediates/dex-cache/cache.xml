@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/ola/Documents/workspace/as/ZoomPreviewPicture/imgprelib/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ac8f814786d6c9e901eff5c1ca058b77785fea2d">
+        <dex dex="/Users/ola/Documents/workspace/as/ZoomPreviewPicture/app/build/intermediates/pre-dexed/debug/classes_2ceaaabe2acfa35e253140b088039ad9dd4fbea0.jar" />
+    </item>
+
+</items>
