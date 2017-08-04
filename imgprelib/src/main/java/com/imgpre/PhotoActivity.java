@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -88,14 +90,14 @@ public class PhotoActivity extends FragmentActivity implements PhotoViewAttacher
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imge_preview_photo);
-        initDate(savedInstanceState);
+        initDate();
         initView();
     }
 
     /**
      * 初始化数据
      */
-    private void initDate(Bundle savedInstanceState) {
+    private void initDate() {
         pageBean = getIntent().getParcelableArrayListExtra("imagePaths");
         currentIndex = getIntent().getIntExtra("position", -1);
         if (pageBean != null) {
@@ -118,8 +120,8 @@ public class PhotoActivity extends FragmentActivity implements PhotoViewAttacher
     /**
      * 初始化控件
      */
+
     private void initView() {
-        viewPager = (PhotoViewPager) findViewById(R.id.viewPager);
         ltAddDot = (TextView) findViewById(R.id.ltAddDot);
         ltAddDot.setText(currentIndex + 1 + "/" + pageBean.size());
         boardSummary = (LinearLayout) this.findViewById(R.id.board_summary);
@@ -128,6 +130,7 @@ public class PhotoActivity extends FragmentActivity implements PhotoViewAttacher
         ReadMoreUtil.limitStringTo140(PhotoActivity.this, pageBean.get(currentIndex).subContent, summaryText, 3, new SummeryTextClickListener());
         commentText = (TextView) this.findViewById(R.id.tv_comment);
         commentText.setOnClickListener(this);
+        viewPager = (PhotoViewPager) findViewById(R.id.viewPager);
         //viewPager的适配器
         PhotoPagerAdapter adapter = new PhotoPagerAdapter(getSupportFragmentManager());
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -286,16 +289,26 @@ public class PhotoActivity extends FragmentActivity implements PhotoViewAttacher
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         //当配置发生变化时（横竖屏切换等原因）
-        ALog.d(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE?"横屏":"竖屏");
+        ALog.d(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? "横屏" : "竖屏");
         ReadMoreUtil.limitStringTo140(PhotoActivity.this, pageBean.get(currentIndex).subContent, summaryText, 3, new SummeryTextClickListener());
         super.onConfigurationChanged(newConfig);
     }
 
-    class SummeryTextClickListener implements View.OnClickListener{
+    class SummeryTextClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             ReadMoreUtil.limitStringTo140(PhotoActivity.this, pageBean.get(currentIndex).subContent, summaryText, 3, this);
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+
+        return this;
+    }
 }
